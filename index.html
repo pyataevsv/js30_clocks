@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    html{
+        height: 100%;
+        background: linear-gradient(blue, #859bd8);
+        
+
+    }
+    .clock{
+        width: 300px;
+        height: 300px;
+        margin: 200px auto;
+        border: 3px solid white;
+        border-radius: 50%;
+        position: relative;
+    }
+
+    .second-hand{
+        border: 1px solid black;
+        width:50%;
+        position: absolute;
+        top: 50%;
+        transform-origin: top right;
+        transform: rotate(90deg);
+        transition: all 0.1s linear;
+    }
+
+    .min-hand{
+        border: 1px solid rgb(241, 176, 77);
+        width:50%;
+        position: absolute;
+        top: 50%;
+        transform-origin: top right;
+        transform: rotate(90deg);
+        transition: all 0.1s linear;
+    }
+    .hour-hand{
+        border: 1px solid rgb(172, 51, 51);
+        width: 30%;
+        position: absolute;
+        top: 50%;
+        left: 20%;
+        transform-origin: top right;
+        transform: rotate(90deg);
+        transition: all 0.1s linear;
+    }
+
+</style>
+
+<body>
+    <div class='clock'>
+        <div class='hand second-hand'></div>
+        <div class='hand min-hand'></div>
+        <div class='hand hour-hand'></div>
+</div>
+    
+</body>
+
+<script>
+    setInterval(setDate,1000);
+    let roundMin = 0;
+    function setDate() {
+        
+        let sechand = document.querySelector('.second-hand')
+        let minhand = document.querySelector('.min-hand')
+        let hourhand = document.querySelector('.hour-hand')
+
+        let now = new Date();
+
+        let sec = now.getSeconds();
+        let secDegrees = (sec / 60) * 360 + roundMin;
+
+        let min = now.getMinutes();
+        let minDegrees = min * 6;
+
+        let hour = now.getHours();
+        let hourDeg = hour * 30;
+
+
+        sechand.style.transform = `rotate(${secDegrees + 90}deg)`;
+        minhand.style.transform = `rotate(${90 + minDegrees}deg)`;
+        hourhand.style.transform = `rotate(${90 + hourDeg}deg)`;
+
+        if(sec == 59){
+            roundMin += 360;
+        }
+        console.log(hour+':'+min+':'+sec + ' '+ hourDeg + ':' + minDegrees+':'+secDegrees);
+    }
+
+
+</script>
+</html>
